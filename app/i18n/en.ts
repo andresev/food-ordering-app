@@ -6,9 +6,8 @@ const en = {
   },
   welcomeScreen: {
     postscript:
-      "psst  — This probably isn't what your app looks like. (Unless your designer handed you these screens, and in that case, ship it!)",
-    readyForLaunch: "Your app, almost ready for launch!",
-    exciting: "(ohh, this is exciting!)",
+      "Welcome to Wingtown\nWhere Every Bite is a Journey of Flavor!",
+    readyForLaunch: "Flavor Takes Flight! Ready for launch!",
   },
   errorScreen: {
     title: "Something went wrong!",
