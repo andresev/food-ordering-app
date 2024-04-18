@@ -12,11 +12,11 @@ const palette = {
   neutral900: "#000000",
 
   primary100: "#F4E0D9",
-  primary200: "#E8C1B4",
-  primary300: "#DDA28E",
-  primary400: "#D28468",
-  primary500: "#C76542",
-  primary600: "#A54F31",
+  primary200: "#FFEBE4",
+  primary300: "#FFC9B8",
+  primary400: "#FFA080",
+  primary500: "#F47A51",
+  primary600: "#F26333",
 
   secondary100: "#DCDDE9",
   secondary200: "#BCC0D6",

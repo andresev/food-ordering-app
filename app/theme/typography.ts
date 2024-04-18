@@ -2,30 +2,27 @@
 // markdown file and add links from here
 
 import { Platform } from "react-native"
-import {
-  SpaceGrotesk_300Light as spaceGroteskLight,
-  SpaceGrotesk_400Regular as spaceGroteskRegular,
-  SpaceGrotesk_500Medium as spaceGroteskMedium,
-  SpaceGrotesk_600SemiBold as spaceGroteskSemiBold,
-  SpaceGrotesk_700Bold as spaceGroteskBold,
-} from "@expo-google-fonts/space-grotesk"
+
+import {Inter_300Light, Inter_400Regular, Inter_500Medium, Inter_600SemiBold, Inter_700Bold,Inter_800ExtraBold} from '@expo-google-fonts/inter'
 
 export const customFontsToLoad = {
-  spaceGroteskLight,
-  spaceGroteskRegular,
-  spaceGroteskMedium,
-  spaceGroteskSemiBold,
-  spaceGroteskBold,
+  Inter_300Light,
+  Inter_400Regular,
+  Inter_500Medium,
+  Inter_600SemiBold,
+  Inter_700Bold,
+  Inter_800ExtraBold
 }
 
 const fonts = {
   spaceGrotesk: {
     // Cross-platform Google font.
-    light: "spaceGroteskLight",
-    normal: "spaceGroteskRegular",
-    medium: "spaceGroteskMedium",
-    semiBold: "spaceGroteskSemiBold",
-    bold: "spaceGroteskBold",
+    light: "Inter_300Light",
+    normal: "Inter_400Regular",
+    medium: "Inter_500Medium",
+    semiBold: "Inter_600SemiBold",
+    bold: "Inter_700Bold",
+    extraBold: "Inter_800ExtraBold"
   },
   helveticaNeue: {
     // iOS only font.

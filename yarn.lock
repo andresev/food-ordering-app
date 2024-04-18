@@ -1270,6 +1270,11 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@expo-google-fonts/inter@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/inter/-/inter-0.2.3.tgz#82bf7224bb76fc6614a00393a9e9ee4d6dd09dcb"
+  integrity sha512-iHK9FI+dnE45X5c2Z5hSFwNH4zUWethizpbv3XUn0FIGw5jwvzriENz0a6wCdkI4/d+1QkurnHo5XHti7TbNJA==
+
 "@expo-google-fonts/space-grotesk@^0.2.2":
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/@expo-google-fonts/space-grotesk/-/space-grotesk-0.2.3.tgz#f2d4fdc167d4d659b2a0d91d608e27ef9a7602f3"
@@ -4581,7 +4586,7 @@ expo-file-system@~16.0.0, expo-file-system@~16.0.8:
   resolved "https://registry.yarnpkg.com/expo-file-system/-/expo-file-system-16.0.8.tgz#13c79a8e06e42a8e76e9297df6920597a011d989"
   integrity sha512-yDbVT0TUKd7ewQjaY5THum2VRFx2n/biskGhkUmLh3ai21xjIVtaeIzHXyv9ir537eVgt4ReqDNWi7jcXjdUcA==
 
-expo-font@~11.10.2, expo-font@~11.10.3:
+expo-font@~11.10.3:
   version "11.10.3"
   resolved "https://registry.yarnpkg.com/expo-font/-/expo-font-11.10.3.tgz#a3115ebda8e09bd7cb8052619a4bbe606f0c17f4"
   integrity sha512-q1Td2zUvmLbCA9GV4OG4nLPw5gJuNY1VrPycsnemN1m8XWTzzs8nyECQQqrcBhgulCgcKZZJJ6U0kC2iuSoQHQ==

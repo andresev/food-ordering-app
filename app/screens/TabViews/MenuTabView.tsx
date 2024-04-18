@@ -11,7 +11,7 @@ interface MenuTabViewProps {
   data: any
 }
 
-const { width, height } = Dimensions.get("window")
+const { width } = Dimensions.get("window")
 
 export const MenuTabView: FC<MenuTabViewProps> = ({ data }: MenuTabViewProps) => {
   // Pull in one of our MST stores
@@ -31,14 +31,14 @@ export const MenuTabView: FC<MenuTabViewProps> = ({ data }: MenuTabViewProps) =>
           <Image source={{ uri: item.imageURL }} resizeMethod="resize" style={$image} />
         </View>
         <View style={$itemInfoContainer}>
-          <View style={$itemInnerLeftContainer}>
+          <View style={$itemInnerTopContainer}>
+            <Text style={$itemPrice}>{`$${item.price}`}</Text>
+          </View>
+          <View style={$itemInnerMiddleContainer}>
             <Text style={$itemTitle}>{item.name}</Text>
-            <Text style={$itemDescription} numberOfLines={4} ellipsizeMode="tail">
+            <Text style={$itemDescription} numberOfLines={2} ellipsizeMode="tail">
               {item.description}
             </Text>
-          </View>
-          <View style={$itemInnerRightContainer}>
-            <Text>{`$${item.price}`}</Text>
           </View>
         </View>
       </Pressable>
@@ -52,6 +52,7 @@ export const MenuTabView: FC<MenuTabViewProps> = ({ data }: MenuTabViewProps) =>
         renderItem={renderItem}
         contentContainerStyle={$flashListContentContainer}
         scrollEnabled
+        ItemSeparatorComponent={() => <View style={$itemSeparator} />}
       />
     </View>
   )
@@ -59,65 +60,77 @@ export const MenuTabView: FC<MenuTabViewProps> = ({ data }: MenuTabViewProps) =>
 
 const $root: ViewStyle = {
   flex: 1,
-  // height: 2,
-  // paddingTop: 20,
-  width: width,
+  // width: width,
 }
 
 const $flashListContentContainer: ViewStyle = {
   paddingTop: 10,
+  alignItems: "center",
 }
 
 const $itemSeparator: ViewStyle = {
-  height: 1,
-  backgroundColor: "black",
+  height: 8,
 }
 
-// Render Item
+// RENDER ITEM
 const $renderItemContainer: ViewStyle = {
   flexDirection: "row",
+  alignItems: "center", // Ensure content is centered within the container
   height: 120,
-  // borderWidth: 1,
+  width: 335,
+  backgroundColor: "#fff", // Essential for iOS shadows
+  borderRadius: 6,
+  shadowOffset: { width: 0, height: 2 },
+  shadowColor: "#000",
+  shadowOpacity: 0.3,
+  shadowRadius: 1.5,
+  elevation: 3, // Android shadow
+  marginBottom: 10, // Add margin to ensure space for shadow
 }
 
 const $image: ImageStyle = {
   flex: 1,
+  borderTopLeftRadius: 6,
+  borderBottomLeftRadius: 6,
 }
 
 const $imageContainer: ViewStyle = {
-  flex: 2,
-  // backgroundColor: "blue",
+  width: "35%",
+  height: "100%",
 }
 
 const $itemInfoContainer: ViewStyle = {
-  flexDirection: "row",
-  flex: 5,
+  flexDirection: "column",
+  rowGap: 5,
+  width: "65%",
+  height: "100%",
   padding: 10,
-  // backgroundColor: "red",
 }
 
 const $itemTitle: TextStyle = {
-  fontFamily: typography.primary?.bold,
+  fontFamily: typography.primary.medium,
   fontSize: 16,
   lineHeight: 16,
 }
 
 const $itemDescription: TextStyle = {
-  fontFamily: typography.primary.normal,
+  fontFamily: typography.primary.light,
   fontSize: 12,
   lineHeight: 12,
   textAlign: "left",
 }
 
-const $itemInnerLeftContainer: ViewStyle = {
-  flex: 8,
-  rowGap: 10,
-  // backgroundColor: "green",
+const $itemInnerTopContainer: ViewStyle = {
+  flexDirection: "row",
 }
 
-const $itemInnerRightContainer: ViewStyle = {
-  flex: 3,
-  justifyContent: "center",
-  alignItems: "center",
-  // backgroundColor: "cyan",
+const $itemInnerMiddleContainer: ViewStyle = {
+  flex: 8,
+  rowGap: 10,
+}
+
+const $itemPrice: TextStyle = {
+  fontFamily: typography.primary.bold,
+  fontSize: 14,
+  color: colors.palette.primary600,
 }

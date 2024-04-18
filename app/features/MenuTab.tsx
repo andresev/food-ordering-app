@@ -1,0 +1,91 @@
+import React, { useRef, useState } from "react"
+import { TextStyle, ViewStyle, Animated, ScrollView, Dimensions } from "react-native"
+import { observer } from "mobx-react-lite"
+import { colors, spacing, typography } from "app/theme"
+import { Button } from "app/components"
+
+export interface MenuTabProps {
+  routes: any
+  index: number | undefined
+  setIndex: React.Dispatch<React.SetStateAction<number>>
+  position?: any
+  layout?: any
+  jumpTo?: any
+}
+
+const { width: screenWidth } = Dimensions.get("window")
+
+/**
+ * MenuTab: Shows a custom tab bar for menu categories
+ */
+export const MenuTab = observer(function MenuTab(props: MenuTabProps) {
+  const scrollViewRef = useRef<ScrollView>(null)
+  const [coordinate, setCoordinate] = useState([])
+  const inputRange = props?.routes?.map((x: any, i: number) => i)
+
+  const handleTabPress = (i: number, route: any) => {
+    scrollViewRef.current?.scrollTo({ x: coordinate[route.key] - 50, animated: true })
+    props.setIndex(i)
+  }
+  return (
+    <ScrollView
+      ref={scrollViewRef}
+      style={$scrollView}
+      contentContainerStyle={$tabBar}
+      horizontal
+      scrollEnabled
+      scrollEventThrottle={10}
+      bounces={false}
+      showsHorizontalScrollIndicator={false}
+    >
+      {props?.routes?.map((route: any, i: number) => {
+        const opacity = props?.position?.interpolate({
+          inputRange,
+          outputRange: inputRange.map((inputIndex: any) => (inputIndex === i ? 1 : 0.5)),
+        })
+
+        return (
+          <Button
+            onLayout={(event) => {
+              const layout = event.nativeEvent.layout
+              //@ts-ignore
+              coordinate[route.key] = layout.x
+              console.log(layout.x)
+            }}
+            text={route.title}
+            style={$button}
+            textStyle={[$buttonText, { opacity }]}
+            preset={props.index === i ? "reversed" : "filled"}
+            onPress={() => handleTabPress(i, route)}
+          />
+        )
+      })}
+    </ScrollView>
+  )
+})
+
+const $scrollView: ViewStyle = {
+  maxHeight: 60,
+}
+
+const $tabBar: ViewStyle = {
+  flexGrow: 1,
+  flexDirection: "row",
+  justifyContent: "flex-start",
+  alignItems: "center",
+  columnGap: 10,
+  paddingHorizontal: 20,
+  // minWidth: screenWidth * 2,
+  backgroundColor: colors.palette.neutral100,
+}
+
+const $button: ViewStyle = {
+  height: 32,
+  paddingVertical: spacing.xxs,
+  paddingHorizontal: spacing.xs,
+}
+
+const $buttonText: TextStyle = {
+  fontFamily: typography.primary.bold,
+  fontSize: 12,
+}

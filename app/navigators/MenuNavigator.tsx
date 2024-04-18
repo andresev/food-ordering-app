@@ -8,7 +8,7 @@ import * as Screens from "app/screens"
 export type MenuNavigatorParamList = {
   Menu: undefined
   Cart: undefined
-  Item: { item: MenuItemType } | undefined
+  Item: MenuItemType | undefined
 }
 
 export type MenuNavigatorScreenProps<T extends keyof MenuNavigatorParamList> =
@@ -20,7 +20,7 @@ export const MenuNavigator = () => {
     <Stack.Navigator
       initialRouteName="Menu"
       screenOptions={{
-        cardStyle: { backgroundColor: "transparent" },
+        // cardStyle: { backgroundColor: "transparent" },
         headerShown: true,
         headerBackVisible: true,
       }}
