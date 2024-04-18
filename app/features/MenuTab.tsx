@@ -46,11 +46,11 @@ export const MenuTab = observer(function MenuTab(props: MenuTabProps) {
 
         return (
           <Button
+            key={route.key}
             onLayout={(event) => {
               const layout = event.nativeEvent.layout
               //@ts-ignore
               coordinate[route.key] = layout.x
-              console.log(layout.x)
             }}
             text={route.title}
             style={$button}
