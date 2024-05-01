@@ -3,6 +3,7 @@ import { TextStyle, ViewStyle, Animated, ScrollView, Dimensions } from "react-na
 import { observer } from "mobx-react-lite"
 import { colors, spacing, typography } from "app/theme"
 import { Button } from "app/components"
+import BottomSheet from "@gorhom/bottom-sheet"
 
 export interface MenuTabProps {
   routes: any
@@ -27,6 +28,7 @@ export const MenuTab = observer(function MenuTab(props: MenuTabProps) {
     scrollViewRef.current?.scrollTo({ x: coordinate[route.key] - 50, animated: true })
     props.setIndex(i)
   }
+
   return (
     <ScrollView
       ref={scrollViewRef}

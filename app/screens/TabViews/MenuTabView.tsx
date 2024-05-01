@@ -1,34 +1,104 @@
-import React, { FC } from "react"
-import { ViewStyle, View, TextStyle, ImageStyle, Dimensions, Image, Pressable } from "react-native"
+import React, {
+  FC,
+  useRef,
+  useCallback,
+  useMemo,
+  useEffect,
+  useState,
+  useLayoutEffect,
+} from "react"
+import {
+  ViewStyle,
+  View,
+  TextStyle,
+  ImageStyle,
+  Dimensions,
+  Pressable,
+  FlatList,
+} from "react-native"
+import { Image } from "expo-image"
 import { Text } from "app/components"
 import { typography, colors } from "app/theme"
-import { FlatList } from "react-native-gesture-handler"
+import { useStores } from "app/models"
 import { useNavigation } from "@react-navigation/native"
 import { MenuItemType } from "types/tabview"
-// import { useStores } from "app/models"
+import BottomSheet, { BottomSheetView, BottomSheetBackdrop } from "@gorhom/bottom-sheet"
+import { MenuItemSheet } from "../BottomSheets/MenuItemSheet"
+import * as Haptics from "expo-haptics"
 
+// import { useStores } from "app/models"
 interface MenuTabViewProps {
   data: any
 }
 
-const { width } = Dimensions.get("window")
+const { width, height } = Dimensions.get("window")
 
 export const MenuTabView: FC<MenuTabViewProps> = ({ data }: MenuTabViewProps) => {
+  const [selectedItem, setSelectedItem] = useState<MenuItemType | null>(null)
   // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
+  const { addToCart } = useStores()
 
   // Pull in navigation via hook
   const navigation = useNavigation() as any
+  // ref
+  const bottomSheetRef = useRef<BottomSheet>(null)
+  // variables
+  const snapPoints = useMemo(() => ["90%"], [])
 
-  const handleItemOnPress = (item: MenuItemType) => {
-    navigation.navigate("Item", item)
+  // callbacks
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log("handleSheetChanges", index)
+  }, [])
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    })
+  }, [])
+
+  // renders
+  const renderBackdrop = useCallback(
+    (props: any) => (
+      <BottomSheetBackdrop
+        {...props}
+        disappearsOnIndex={-1}
+        appearsOnIndex={0}
+        pressBehavior={"close"}
+        opacity={0.5}
+      />
+    ),
+    [],
+  )
+
+  const handleOnClose = () => {
+    setSelectedItem(null)
+  }
+
+  // Bottomsheet item Add to Cart button
+  const handleAddToCart = () => {
+    Haptics.selectionAsync()
+    addToCart(selectedItem?.id!, selectedItem?.name!, selectedItem?.price!)
+    bottomSheetRef.current?.close()
   }
 
   const renderItem = ({ item }: any) => {
+    const handleItemOnPress = (item: MenuItemType) => {
+      setSelectedItem(item)
+      bottomSheetRef.current?.snapToIndex(0)
+    }
+
+    const blurHash = "LEHLk~WB2yk8pyo0adR*.7kCMdnj"
+
     return (
       <Pressable style={$renderItemContainer} onPress={() => handleItemOnPress(item)}>
         <View style={$imageContainer}>
-          <Image source={{ uri: item.imageURL }} resizeMethod="resize" style={$image} />
+          <Image
+            source={item.imageURL}
+            style={$image}
+            contentFit="fill"
+            placeholder={blurHash}
+            placeholderContentFit="fill"
+          />
         </View>
         <View style={$itemInfoContainer}>
           <View style={$itemInnerTopContainer}>
@@ -46,52 +116,68 @@ export const MenuTabView: FC<MenuTabViewProps> = ({ data }: MenuTabViewProps) =>
   }
 
   return (
-    <View style={$root}>
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        contentContainerStyle={$flashListContentContainer}
-        scrollEnabled
-        ItemSeparatorComponent={() => <View style={$itemSeparator} />}
-      />
-    </View>
+    <>
+      <View style={$root}>
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          contentContainerStyle={$flashListContentContainer}
+          keyExtractor={(item: any) => item.id}
+          scrollEnabled
+          ItemSeparatorComponent={() => <View style={$itemSeparator} />}
+        />
+        <BottomSheet
+          ref={bottomSheetRef}
+          snapPoints={snapPoints}
+          onChange={handleSheetChanges}
+          enablePanDownToClose
+          index={-1}
+          onClose={handleOnClose}
+          backdropComponent={renderBackdrop}
+        >
+          <BottomSheetView style={$bottomSheetContentContainer}>
+            <MenuItemSheet itemData={selectedItem} onAddToCart={handleAddToCart} />
+          </BottomSheetView>
+        </BottomSheet>
+      </View>
+    </>
   )
 }
 
 const $root: ViewStyle = {
   flex: 1,
-  // width: width,
 }
 
 const $flashListContentContainer: ViewStyle = {
-  paddingTop: 10,
+  paddingTop: 15,
+  paddingBottom: 100,
   alignItems: "center",
 }
 
 const $itemSeparator: ViewStyle = {
-  height: 8,
+  paddingVertical: 10,
 }
 
 // RENDER ITEM
 const $renderItemContainer: ViewStyle = {
   flexDirection: "row",
-  alignItems: "center", // Ensure content is centered within the container
+  alignItems: "center",
   height: 120,
   width: 335,
-  backgroundColor: "#fff", // Essential for iOS shadows
+  backgroundColor: colors.palette.neutral100,
   borderRadius: 6,
   shadowOffset: { width: 0, height: 2 },
   shadowColor: "#000",
   shadowOpacity: 0.3,
   shadowRadius: 1.5,
-  elevation: 3, // Android shadow
-  marginBottom: 10, // Add margin to ensure space for shadow
+  elevation: 3,
 }
 
 const $image: ImageStyle = {
   flex: 1,
   borderTopLeftRadius: 6,
   borderBottomLeftRadius: 6,
+  overflow: "hidden",
 }
 
 const $imageContainer: ViewStyle = {
@@ -133,4 +219,9 @@ const $itemPrice: TextStyle = {
   fontFamily: typography.primary.bold,
   fontSize: 14,
   color: colors.palette.primary600,
+}
+
+const $bottomSheetContentContainer: ViewStyle = {
+  flex: 1,
+  alignItems: "center",
 }

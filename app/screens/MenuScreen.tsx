@@ -1,15 +1,15 @@
-import React, { FC, useState } from "react"
+import React, { FC, useMemo, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { Dimensions, View, Animated } from "react-native"
-// import { Button, Screen, Text } from "app/components"
+import { Button, Screen, Text } from "app/components"
 import { MenuNavigatorScreenProps } from "app/navigators"
 // @ts-ignore
 import { getSquareCatalogList } from "app/services/square"
 import { useQuery } from "@tanstack/react-query"
-import { SceneRendererProps, TabView } from "react-native-tab-view"
+import { TabView, SceneMap } from "react-native-tab-view"
 import { MenuTabView } from "./TabViews/MenuTabView"
 import { MenuTab } from "app/features"
-
+import { ConfigTabViewRoutes, TabViewRoutes } from "app/config/config.tabView"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "app/models"
 
@@ -25,6 +25,9 @@ export const MenuScreen: FC<MenuScreenProps> = observer(function MenuScreen({
   // Pull in navigation via hook
   // const navigation = useNavigation()
 
+  const [routes] = useState<ConfigTabViewRoutes[]>(TabViewRoutes)
+  const [index, setIndex] = useState(0)
+
   const { data } = useQuery({
     queryKey: ["catalog"],
     queryFn: async () => {
@@ -34,28 +37,14 @@ export const MenuScreen: FC<MenuScreenProps> = observer(function MenuScreen({
     },
   })
 
-  const renderScene = ({ route }: any) => {
-    switch (route.key) {
-      case "entree":
-        return <MenuTabView data={data?.filter((item: any) => item.category === "Entree")} />
-      case "breakfast":
-        return <MenuTabView data={data?.filter((item: any) => item.category === "Breakfast")} />
-      case "null":
-        return <MenuTabView data={data?.filter((item: any) => item.category === null)} />
-      default:
-        return null
-    }
-  }
+  const map = routes?.reduce((scenes: any, route: any) => {
+    scenes[route?.key] = () => (
+      <MenuTabView data={data?.filter((item: any) => item.category === route.title)} />
+    )
+    return scenes
+  }, {})
 
-  const [index, setIndex] = useState(0)
-  const [routes] = useState([
-    { key: "entree", title: "Entree" },
-    { key: "breakfast", title: "Breakfast" },
-    { key: "null", title: "Other" },
-    { key: "drinks", title: "Drinks" },
-    { key: "lunch", title: "Lunch" },
-    { key: "snack", title: "Snack" },
-  ])
+  const renderScene = useMemo(() => SceneMap(map), [routes, data])
 
   return (
     <TabView
@@ -68,6 +57,7 @@ export const MenuScreen: FC<MenuScreenProps> = observer(function MenuScreen({
       orientation="horizontal"
       animationEnabled
       swipeEnabled
+      lazy
     />
   )
 })

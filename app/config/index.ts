@@ -16,6 +16,7 @@
 import BaseConfig from "./config.base"
 import ProdConfig from "./config.prod"
 import DevConfig from "./config.dev"
+import * as TabViewConfig from './config.tabView'
 
 let ExtraConfig = ProdConfig
 

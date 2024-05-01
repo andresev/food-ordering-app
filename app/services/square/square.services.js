@@ -11,8 +11,10 @@ async function getSquareCatalogList() {
         name: item.catalogItemObj?.itemData?.name || null,
         description: item.catalogItemObj?.itemData?.description || null,
         price:
-          item.catalogItemObj.itemData?.variations?.[0]?.itemVariationData?.priceMoney?.amount ||
-          null,
+          (
+            item.catalogItemObj.itemData?.variations?.[0]?.itemVariationData?.priceMoney?.amount /
+            100
+          ).toFixed(2) || null,
         imageURL: item.catalogImageObj?.imageData?.url || null,
         category: item.catalogCategoryObj?.categoryData?.name || null,
       }

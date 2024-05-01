@@ -3,5 +3,8 @@ export * from "./ErrorScreen/ErrorBoundary"
 // export other screens here
 export * from "./MenuScreen"
 export * from "./CartScreen"
-export * from './TabViews/MenuTabView'
 export * from "./ItemScreen"
+// Tab Views
+export * from './TabViews/MenuTabView'
+// Bottom Sheets
+export * from './BottomSheets/MenuItemSheet'
