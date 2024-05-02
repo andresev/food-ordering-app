@@ -101,6 +101,7 @@ export const iconRegistry = {
   x: require("../../assets/icons/x.png"),
   plus: require("../../assets/icons/plus.png"),
   minus: require("../../assets/icons/minus.png"),
+  chevronLeft: require("../../assets/icons/chevronLeft.png"),
 }
 
 const $imageStyleBase: ImageStyle = {

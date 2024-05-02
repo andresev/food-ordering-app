@@ -21,13 +21,12 @@ export const MenuNavigator = () => {
       initialRouteName="Menu"
       screenOptions={{
         // cardStyle: { backgroundColor: "transparent" },
-        headerShown: true,
-        headerBackVisible: true,
+        headerShown: false,
       }}
     >
       <Stack.Screen name="Menu" component={Screens.MenuScreen} />
       <Stack.Screen name="Cart" component={Screens.CartScreen} />
-      <Stack.Screen name="Item" component={Screens.ItemScreen} />
+      {/* <Stack.Screen name="Item" component={Screens.ItemScreen} /> */}
     </Stack.Navigator>
   )
 }

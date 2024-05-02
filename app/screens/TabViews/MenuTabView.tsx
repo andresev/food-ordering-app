@@ -1,12 +1,4 @@
-import React, {
-  FC,
-  useRef,
-  useCallback,
-  useMemo,
-  useEffect,
-  useState,
-  useLayoutEffect,
-} from "react"
+import React, { FC } from "react"
 import {
   ViewStyle,
   View,
@@ -22,69 +14,33 @@ import { typography, colors } from "app/theme"
 import { useStores } from "app/models"
 import { useNavigation } from "@react-navigation/native"
 import { MenuItemType } from "types/tabview"
-import BottomSheet, { BottomSheetView, BottomSheetBackdrop } from "@gorhom/bottom-sheet"
-import { MenuItemSheet } from "../BottomSheets/MenuItemSheet"
-import * as Haptics from "expo-haptics"
 
 // import { useStores } from "app/models"
 interface MenuTabViewProps {
+  itemOnPress: any
   data: any
+  selectedItem: any
+  setSelectedItem: any
 }
 
-const { width, height } = Dimensions.get("window")
+// const { width, height } = Dimensions.get("window")
 
-export const MenuTabView: FC<MenuTabViewProps> = ({ data }: MenuTabViewProps) => {
-  const [selectedItem, setSelectedItem] = useState<MenuItemType | null>(null)
+export const MenuTabView: FC<MenuTabViewProps> = ({
+  data,
+  itemOnPress,
+  setSelectedItem,
+}: MenuTabViewProps) => {
+  // const [selectedItem, setSelectedItem] = useState<MenuItemType | null>(null)
   // Pull in one of our MST stores
-  const { addToCart } = useStores()
+  // const { addToCart } = useStores()
 
-  // Pull in navigation via hook
+  // // Pull in navigation via hook
   const navigation = useNavigation() as any
-  // ref
-  const bottomSheetRef = useRef<BottomSheet>(null)
-  // variables
-  const snapPoints = useMemo(() => ["90%"], [])
-
-  // callbacks
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log("handleSheetChanges", index)
-  }, [])
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
-    })
-  }, [])
-
-  // renders
-  const renderBackdrop = useCallback(
-    (props: any) => (
-      <BottomSheetBackdrop
-        {...props}
-        disappearsOnIndex={-1}
-        appearsOnIndex={0}
-        pressBehavior={"close"}
-        opacity={0.5}
-      />
-    ),
-    [],
-  )
-
-  const handleOnClose = () => {
-    setSelectedItem(null)
-  }
-
-  // Bottomsheet item Add to Cart button
-  const handleAddToCart = () => {
-    Haptics.selectionAsync()
-    addToCart(selectedItem?.id!, selectedItem?.name!, selectedItem?.price!)
-    bottomSheetRef.current?.close()
-  }
 
   const renderItem = ({ item }: any) => {
     const handleItemOnPress = (item: MenuItemType) => {
       setSelectedItem(item)
-      bottomSheetRef.current?.snapToIndex(0)
+      itemOnPress(item)
     }
 
     const blurHash = "LEHLk~WB2yk8pyo0adR*.7kCMdnj"
@@ -126,19 +82,6 @@ export const MenuTabView: FC<MenuTabViewProps> = ({ data }: MenuTabViewProps) =>
           scrollEnabled
           ItemSeparatorComponent={() => <View style={$itemSeparator} />}
         />
-        <BottomSheet
-          ref={bottomSheetRef}
-          snapPoints={snapPoints}
-          onChange={handleSheetChanges}
-          enablePanDownToClose
-          index={-1}
-          onClose={handleOnClose}
-          backdropComponent={renderBackdrop}
-        >
-          <BottomSheetView style={$bottomSheetContentContainer}>
-            <MenuItemSheet itemData={selectedItem} onAddToCart={handleAddToCart} />
-          </BottomSheetView>
-        </BottomSheet>
       </View>
     </>
   )
@@ -221,6 +164,7 @@ const $itemPrice: TextStyle = {
   color: colors.palette.primary600,
 }
 
+// BOTTOM SHEET
 const $bottomSheetContentContainer: ViewStyle = {
   flex: 1,
   alignItems: "center",
