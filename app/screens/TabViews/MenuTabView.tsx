@@ -1,21 +1,10 @@
 import React, { FC } from "react"
-import {
-  ViewStyle,
-  View,
-  TextStyle,
-  ImageStyle,
-  Dimensions,
-  Pressable,
-  FlatList,
-} from "react-native"
+import { ViewStyle, View, TextStyle, ImageStyle, Pressable, FlatList } from "react-native"
 import { Image } from "expo-image"
 import { Text } from "app/components"
 import { typography, colors } from "app/theme"
-import { useStores } from "app/models"
-import { useNavigation } from "@react-navigation/native"
 import { MenuItemType } from "types/tabview"
 
-// import { useStores } from "app/models"
 interface MenuTabViewProps {
   itemOnPress: any
   data: any
@@ -35,7 +24,7 @@ export const MenuTabView: FC<MenuTabViewProps> = ({
   // const { addToCart } = useStores()
 
   // // Pull in navigation via hook
-  const navigation = useNavigation() as any
+  // const navigation = useNavigation() as any
 
   const renderItem = ({ item }: any) => {
     const handleItemOnPress = (item: MenuItemType) => {
@@ -162,10 +151,4 @@ const $itemPrice: TextStyle = {
   fontFamily: typography.primary.bold,
   fontSize: 14,
   color: colors.palette.primary600,
-}
-
-// BOTTOM SHEET
-const $bottomSheetContentContainer: ViewStyle = {
-  flex: 1,
-  alignItems: "center",
 }

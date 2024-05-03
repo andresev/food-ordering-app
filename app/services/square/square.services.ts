@@ -1,11 +1,12 @@
 import { api } from "../api"
 
-async function getSquareCatalogList() {
+export async function getSquareCatalogList() {
   try {
     const response = await api.apisauce.get("/square/list-catalog")
     const items = response?.data
 
-    const menuItemMap = items.reduce((map, item) => {
+    //@ts-ignore
+    const menuItemMap = items?.reduce((map: any, item: any) => {
       const itemMap = {
         id: item.catalogItemObj?.id,
         name: item.catalogItemObj?.itemData?.name || null,
@@ -31,7 +32,7 @@ async function getSquareCatalogList() {
   }
 }
 
-async function getSquareItemObjectByID(itemID) {
+export async function getSquareItemObjectByID(itemID: any) {
   const { categoryID, imageID } = itemID
   console.log(categoryID, imageID)
   try {
@@ -41,5 +42,3 @@ async function getSquareItemObjectByID(itemID) {
     console.log("Error retrieving item object, ", err)
   }
 }
-
-export { getSquareCatalogList, getSquareItemObjectByID }

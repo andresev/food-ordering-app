@@ -14,6 +14,7 @@ import Config from "../config"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { colors } from "app/theme"
 import { MenuNavigator } from "./MenuNavigator"
+import { HomeNavigator } from "./HomeNavigator"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -31,8 +32,10 @@ import { MenuNavigator } from "./MenuNavigator"
 export type AppStackParamList = {
   Welcome: undefined
   // 🔥 Your screens go here
-  MainNavigator: undefined
+  MenuNavigator: undefined
+  HomeNavigator: undefined
   Cart: undefined
+  Home: undefined
   // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
 
@@ -55,9 +58,10 @@ const AppStack = observer(function AppStack() {
     <Stack.Navigator screenOptions={{ headerShown: false, navigationBarColor: colors.background }}>
       <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
       {/** 🔥 Your screens go here */}
-      <Stack.Screen name="MainNavigator" component={MenuNavigator} />
+      <Stack.Screen name="MenuNavigator" component={MenuNavigator} />
       <Stack.Screen name="Cart" component={Screens.CartScreen} />
       {/* <Stack.Screen name="Item" component={Screens.ItemScreen} /> */}
+      <Stack.Screen name="HomeNavigator" component={HomeNavigator} />
       {/* IGNITE_GENERATOR_ANCHOR_APP_STACK_SCREENS */}
     </Stack.Navigator>
   )

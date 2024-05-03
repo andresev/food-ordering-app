@@ -102,6 +102,9 @@ export const iconRegistry = {
   plus: require("../../assets/icons/plus.png"),
   minus: require("../../assets/icons/minus.png"),
   chevronLeft: require("../../assets/icons/chevronLeft.png"),
+  chevronDown: require("../../assets/icons/chevron-down.png"),
+  search: require("../../assets/icons/search.png"),
+  map: require("../../assets/icons/map.png"),
 }
 
 const $imageStyleBase: ImageStyle = {

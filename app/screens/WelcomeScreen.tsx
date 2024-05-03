@@ -33,7 +33,7 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
 
       <View style={[$bottomContainer, $bottomContainerInsets]}>
         <Text tx="welcomeScreen.postscript" size="md" />
-        <Button text="Start Order" onPress={() => navigation.navigate("MainNavigator")} />
+        <Button text="Start Order" onPress={() => navigation.navigate("HomeNavigator")} />
       </View>
     </View>
   )

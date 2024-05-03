@@ -3,7 +3,6 @@ import { observer } from "mobx-react-lite"
 import { Dimensions, View, Animated, ViewStyle } from "react-native"
 import { Button, Icon, Screen, Text } from "app/components"
 import { MenuNavigatorScreenProps } from "app/navigators"
-// @ts-ignore
 import { getSquareCatalogList } from "app/services/square"
 import { useQuery } from "@tanstack/react-query"
 import { TabView, SceneMap } from "react-native-tab-view"
@@ -17,10 +16,10 @@ import { useNavigation } from "@react-navigation/native"
 import * as Haptics from "expo-haptics"
 import { useStores } from "app/models"
 import { MenuItemType } from "types/tabview"
-import { TouchableOpacity } from "react-native-gesture-handler"
 import { colors } from "app/theme"
 
-interface MenuScreenProps extends MenuNavigatorScreenProps<"Menu"> {}
+// interface MenuScreenProps extends MenuNavigatorScreenProps<"Menu"> {}
+interface MenuScreenProps {}
 
 const { width, height } = Dimensions.get("window")
 
@@ -97,7 +96,7 @@ export const MenuScreen: FC<MenuScreenProps> = observer(function MenuScreen({}: 
 
   return (
     <>
-      <View>
+      {/* <View>
         <Image
           style={$image}
           source={require("../../assets/images/screens/chicken-wings.jpg")}
@@ -106,7 +105,7 @@ export const MenuScreen: FC<MenuScreenProps> = observer(function MenuScreen({}: 
         <TouchableOpacity containerStyle={$buttonContainer} onPress={() => navigation.goBack()}>
           <Icon icon="chevronLeft" size={24} color={colors.palette.primary600} />
         </TouchableOpacity>
-      </View>
+      </View> */}
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}

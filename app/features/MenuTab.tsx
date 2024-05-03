@@ -1,9 +1,8 @@
 import React, { useRef, useState } from "react"
-import { TextStyle, ViewStyle, Animated, ScrollView, Dimensions } from "react-native"
+import { TextStyle, ViewStyle, ScrollView } from "react-native"
 import { observer } from "mobx-react-lite"
-import { colors, spacing, typography } from "app/theme"
+import { spacing, typography } from "app/theme"
 import { Button } from "app/components"
-import BottomSheet from "@gorhom/bottom-sheet"
 
 export interface MenuTabProps {
   routes: any
@@ -14,14 +13,14 @@ export interface MenuTabProps {
   jumpTo?: any
 }
 
-const { width: screenWidth } = Dimensions.get("window")
+// const { width: screenWidth } = Dimensions.get("window")
 
 /**
  * MenuTab: Shows a custom tab bar for menu categories
  */
 export const MenuTab = observer(function MenuTab(props: MenuTabProps) {
   const scrollViewRef = useRef<ScrollView>(null)
-  const [coordinate, setCoordinate] = useState([])
+  const [coordinate] = useState([])
   const inputRange = props?.routes?.map((x: any, i: number) => i)
 
   const handleTabPress = (i: number, route: any) => {
@@ -67,7 +66,7 @@ export const MenuTab = observer(function MenuTab(props: MenuTabProps) {
 })
 
 const $scrollView: ViewStyle = {
-  maxHeight: 60,
+  maxHeight: 45,
 }
 
 const $tabBar: ViewStyle = {
@@ -76,9 +75,7 @@ const $tabBar: ViewStyle = {
   justifyContent: "flex-start",
   alignItems: "center",
   columnGap: 10,
-  paddingHorizontal: 20,
-  // minWidth: screenWidth * 2,
-  backgroundColor: colors.palette.neutral100,
+  backgroundColor: "transparent",
 }
 
 const $button: ViewStyle = {

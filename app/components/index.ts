@@ -11,3 +11,7 @@ export * from "./TextField"
 export * from "./Toggle"
 export * from "./EmptyState"
 export * from "./PlusMinusButton"
+
+// Custom components
+export * from './custom/CustomIconButton'
+export * from './custom/CustomRightIconButton'
