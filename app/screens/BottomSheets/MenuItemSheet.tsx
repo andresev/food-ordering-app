@@ -43,16 +43,6 @@ export const MenuItemSheet = observer(function MenuItemSheet({
         <View style={$itemDescriptionContainer}>
           <Text style={$itemDescription}>{itemData?.description}</Text>
         </View>
-        <View style={$imageContainer}>
-          <Image style={$image} source={itemData?.imageURL} contentFit="fill" />
-        </View>
-        <View style={$itemTitleContainer}>
-          <Text style={$itemTitle}>{itemData?.name}</Text>
-          <Text style={$itemPrice}>{`$${itemData?.price}`}</Text>
-        </View>
-        <View style={$itemDescriptionContainer}>
-          <Text style={$itemDescription}>{itemData?.description}</Text>
-        </View>
       </ScrollView>
       {/* ADD TO CART */}
       <View style={$addToCartContainer}>

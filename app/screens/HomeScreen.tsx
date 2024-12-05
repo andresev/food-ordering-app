@@ -15,7 +15,7 @@ import { useSafeAreaInsetsStyle } from "app/utils/useSafeAreaInsetsStyle"
 import { colors, spacing } from "app/theme"
 import { MenuScreen } from "./MenuScreen"
 import { ItemList } from "app/features/ItemList"
-// import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "app/models"
 
 interface HomeScreenProps extends AppStackScreenProps<"Home"> {}
@@ -25,7 +25,7 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen() {
   // const { someStore, anotherStore } = useStores()
 
   // Pull in navigation via hook
-  // const navigation = useNavigation()
+  const navigation = useNavigation()
 
   // Safe area hook
   const $topContainerInset = useSafeAreaInsetsStyle(["top"])
@@ -43,21 +43,23 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen() {
         </View>
       </View>
       <View style={$root}>
-        <TextField
-          inputWrapperStyle={$inputWrapperStyle}
-          LeftAccessory={() => <Icon icon="search" />}
-          RightAccessory={() => (
-            <CustomIconButton
-              icon="map"
-              iconColor={colors.palette.neutral100}
-              backgroundColor={colors.palette.primary600}
-              onPress={() => console.log("Map")}
-            />
-          )}
-          placeholder="What do you want to eat?"
-          textAlign="left"
-          cursorColor={colors.palette.primary600}
-        />
+        <View style={$textFieldContainer}>
+          <TextField
+            inputWrapperStyle={$inputWrapperStyle}
+            LeftAccessory={() => <Icon icon="search" />}
+            RightAccessory={() => (
+              <CustomIconButton
+                icon="map"
+                iconColor={colors.palette.neutral100}
+                backgroundColor={colors.palette.primary600}
+                onPress={() => navigation.navigate("Location")}
+              />
+            )}
+            placeholder="What do you want to eat?"
+            textAlign="left"
+            cursorColor={colors.palette.primary600}
+          />
+        </View>
         {/* POPULAR FOODS */}
         <View style={$subContainer}>
           <Text size="xl" text="Popular Food" preset="bold" />
@@ -95,7 +97,7 @@ const $header: ViewStyle = {
 
 const $root: ViewStyle = {
   flex: 1,
-  paddingHorizontal: spacing.sm,
+  // paddingHorizontal: spacing.sm,
   paddingTop: spacing.md,
   backgroundColor: colors.palette.neutral200,
 }
@@ -125,4 +127,8 @@ const $subContainer: ViewStyle = {
   justifyContent: "space-between",
   alignItems: "center",
   paddingVertical: 5,
+}
+
+const $textFieldContainer: ViewStyle = {
+  paddingHorizontal: spacing.md,
 }

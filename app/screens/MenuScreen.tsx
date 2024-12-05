@@ -59,7 +59,7 @@ export const MenuScreen: FC<MenuScreenProps> = observer(function MenuScreen({}: 
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null)
   // variables
-  const snapPoints = useMemo(() => ["80%"], [])
+  const snapPoints = useMemo(() => ["90%"], [])
   // callbacks
   const handleSheetChanges = useCallback((index: number) => {
     console.log("handleSheetChanges", index)

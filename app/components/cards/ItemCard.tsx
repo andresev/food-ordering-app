@@ -10,10 +10,12 @@ export interface ItemCardProps {
   itemPrice: number
 }
 
+const blurHash = "LEHLk~WB2yk8pyo0adR*.7kCMdnj"
+
 export const ItemCard = ({ imageURL, itemTitle, itemPrice }: ItemCardProps) => {
   return (
     <View style={$container}>
-      <Image source={imageURL} style={$image} contentFit="cover" />
+      <Image source={imageURL} style={$image} contentFit="cover" placeholder={blurHash} />
       <View style={$textContainer}>
         <Text text={itemTitle} size="sm" preset="default" style={$itemTitle} />
         <Text text={`$${itemPrice}`} preset="bold" style={$itemPrice} />

@@ -17,14 +17,14 @@ export const ItemList = () => {
 
   return (
     <View style={$container}>
-      <ScrollView contentContainerStyle={$scrollView} scrollEnabled horizontal>
+      {/* <ScrollView contentContainerStyle={$scrollView} scrollEnabled horizontal>
         {data?.map((item: any) => (
           // <>
           <ItemCard itemTitle={item.name} itemPrice={item.price} imageURL={item.imageURL} />
           // </>
         ))}
-      </ScrollView>
-      {/* <FlatList
+      </ScrollView> */}
+      <FlatList
         data={data}
         renderItem={({ item }) => (
           <ItemCard itemTitle={item.name} itemPrice={item.price} imageURL={item.imageURL} />
@@ -34,13 +34,13 @@ export const ItemList = () => {
         scrollEnabled
         horizontal
         ItemSeparatorComponent={() => <View style={$itemSeparator} />}
-      /> */}
+      />
     </View>
   )
 }
 
 const $container: ViewStyle = {
-  height: 300,
+  height: 280,
   backgroundColor: colors.palette.neutral200,
 }
 
@@ -52,6 +52,7 @@ const $scrollView: ViewStyle = {
 const $flatlistContentContainer: ViewStyle = {
   display: "flex",
   alignItems: "center",
+  paddingHorizontal: "5%",
 }
 
 const $itemSeparator: ViewStyle = {

@@ -36,7 +36,8 @@ export type AppStackParamList = {
   HomeNavigator: undefined
   Cart: undefined
   Home: undefined
-  // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
+  Location: undefined
+	// IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
 
 /**
@@ -62,7 +63,8 @@ const AppStack = observer(function AppStack() {
       <Stack.Screen name="Cart" component={Screens.CartScreen} />
       {/* <Stack.Screen name="Item" component={Screens.ItemScreen} /> */}
       <Stack.Screen name="HomeNavigator" component={HomeNavigator} />
-      {/* IGNITE_GENERATOR_ANCHOR_APP_STACK_SCREENS */}
+      <Stack.Screen name="Location" component={Screens.LocationScreen} />
+			{/* IGNITE_GENERATOR_ANCHOR_APP_STACK_SCREENS */}
     </Stack.Navigator>
   )
 })
